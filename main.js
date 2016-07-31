@@ -56,7 +56,3 @@ coffeeShop.buyDrink("filtered");
 coffeeShop.buyDrink("doubleShot");
 coffeeShop.buyDrink("frenchPress");
 
-// This is a business! We need more money to buy more beans!
-// Add properties to each drink object so they have a price and a beanRequirement property.
-// Then, create a buyDrink method that increased the amount of money the coffeeShop has
-// (depending on the drinks price) and invokes the makeDrink method.
