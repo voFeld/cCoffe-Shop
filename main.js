@@ -2,22 +2,30 @@ var coffeeShop = {
   beans: 40,
   money: 100,
 
+  // drinkRequirements: {
+  //   latte: 10,
+  //   americano: 5,
+  //   doubleShot: 15,
+  //   frenchPress: 12
+  // },
+
   drinkRequirements: {
-    latte: 10,
-    americano: 5,
-    doubleShot: 15,
-    frenchPress: 12
+    latte: {price: 10, beanRequirement: 10},
+    americano: {price: 5, beanRequirement: 5},
+    doubleShot: {price: 15, beanRequirement: 15},
+    frenchPress: {price: 12, beanRequirement: 12}
   },
 
   makeDrink: function (drinkType) {
 
-    if(this.beans < this.drinkRequirements[drinkType]) {
-      console.log("Sorry, we're all out of beans!");
-    } else if (this.drinkRequirements.hasOwnProperty(drinkType)) {
-      this.beans -= this.drinkRequirements[drinkType];
-    } else {
-      console.log("Sorry, we don't make " + drinkType);
-    }
+    // if(this.drinkRequirements.hasOwnProperty(drinkType)) {
+    //   if(this.beans < this.drinkRequirements[drinkType].beanRequirement) {
+    //     console.log("Sorry, we're all out of beans!");
+    //   } else {
+        this.beans -= this.drinkRequirements[drinkType].beanRequirement;
+    //   }
+    // }
+
   },
 
   buySupplies: function(amount){
@@ -25,15 +33,30 @@ var coffeeShop = {
     this.beans += amount;
     this.money -= amount * beanPrice;
 
+  },
+
+  buyDrink: function(drinkType){
+
+    if (this.drinkRequirements.hasOwnProperty(drinkType)) {
+      if (this.beans > this.drinkRequirements[drinkType].beanRequirement){
+        this.money += this.drinkRequirements[drinkType].price;
+        this.makeDrink(drinkType);
+      } else {
+        console.log("Sorry, we're all out of beans!");
+      }
+    }
+
   }
+
 };
 
-coffeeShop.makeDrink("latte");
-coffeeShop.makeDrink("americano");
-coffeeShop.makeDrink("filtered");
-coffeeShop.makeDrink("doubleShot");
-coffeeShop.makeDrink("frenchPress");
+coffeeShop.buyDrink("latte");
+coffeeShop.buyDrink("americano");
+coffeeShop.buyDrink("filtered");
+coffeeShop.buyDrink("doubleShot");
+coffeeShop.buyDrink("frenchPress");
 
-// Now give the coffeeShop a money property and the ability to buy more supplies with a buySupplies method.
-// It should reduce the amount of money depending on how many beans are purchased.
-// You decide how much the beans cost ;)
+// This is a business! We need more money to buy more beans!
+// Add properties to each drink object so they have a price and a beanRequirement property.
+// Then, create a buyDrink method that increased the amount of money the coffeeShop has
+// (depending on the drinks price) and invokes the makeDrink method.
